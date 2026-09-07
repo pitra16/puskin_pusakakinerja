@@ -114,50 +114,97 @@ include "../../includes/navbar.php";
 
 
     <!-- =================================================
-         CARD
+         NOTIFIKASI
     ================================================== -->
 
     <?php if (isset($_GET["status"])): ?>
 
-    <?php if ($_GET["status"] === "tambah"): ?>
 
-        <div class="alert alert-success alert-dismissible fade show">
-            <i class="bi bi-check-circle me-2"></i>
-            Data pegawai berhasil ditambahkan.
-            <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="alert"
-            ></button>
-        </div>
+        <!-- TAMBAH PEGAWAI -->
 
-    <?php elseif ($_GET["status"] === "edit"): ?>
+        <?php if ($_GET["status"] === "tambah"): ?>
 
-        <div class="alert alert-success alert-dismissible fade show">
-            <i class="bi bi-check-circle me-2"></i>
-            Data pegawai berhasil diperbarui.
-            <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="alert"
-            ></button>
-        </div>
+            <div class="alert alert-success alert-dismissible fade show">
 
-    <?php elseif ($_GET["status"] === "hapus"): ?>
+                <i class="bi bi-check-circle me-2"></i>
 
-        <div class="alert alert-success alert-dismissible fade show">
-            <i class="bi bi-check-circle me-2"></i>
-            Data pegawai berhasil dihapus.
-            <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="alert"
-            ></button>
-        </div>
+                Data pegawai berhasil ditambahkan.
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+
+            </div>
+
+
+        <!-- EDIT PEGAWAI -->
+
+        <?php elseif ($_GET["status"] === "edit"): ?>
+
+            <div class="alert alert-success alert-dismissible fade show">
+
+                <i class="bi bi-check-circle me-2"></i>
+
+                Data pegawai berhasil diperbarui.
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+
+            </div>
+
+
+        <!-- HAPUS PEGAWAI -->
+
+        <?php elseif ($_GET["status"] === "hapus"): ?>
+
+            <div class="alert alert-success alert-dismissible fade show">
+
+                <i class="bi bi-check-circle me-2"></i>
+
+                Data pegawai berhasil dihapus.
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+
+            </div>
+
+
+        <!-- AKUN BERHASIL DIBUAT -->
+
+        <?php elseif ($_GET["status"] === "akun"): ?>
+
+            <div class="alert alert-success alert-dismissible fade show">
+
+                <i class="bi bi-person-check me-2"></i>
+
+                Akun pegawai berhasil dibuat.
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+
+            </div>
+
+
+        <?php endif; ?>
+
 
     <?php endif; ?>
 
-<?php endif; ?>
+
+    <!-- =================================================
+         CARD
+    ================================================== -->
 
     <div class="content-card">
 
@@ -206,8 +253,8 @@ include "../../includes/navbar.php";
                             No. Telepon
                         </th>
 
-                        <th width="15%">
-                             Akun
+                        <th width="18%">
+                            Akun
                         </th>
 
                         <th width="15%">
@@ -239,14 +286,20 @@ include "../../includes/navbar.php";
                         <tr>
 
 
-                            <!-- NO -->
+                            <!-- =================================================
+                                 NO
+                            ================================================== -->
 
                             <td>
+
                                 <?= $no++; ?>
+
                             </td>
 
 
-                            <!-- NAMA -->
+                            <!-- =================================================
+                                 NAMA
+                            ================================================== -->
 
                             <td>
 
@@ -261,7 +314,9 @@ include "../../includes/navbar.php";
                             </td>
 
 
-                            <!-- NIP -->
+                            <!-- =================================================
+                                 NIP
+                            ================================================== -->
 
                             <td>
 
@@ -272,7 +327,9 @@ include "../../includes/navbar.php";
                             </td>
 
 
-                            <!-- TELEPON -->
+                            <!-- =================================================
+                                 TELEPON
+                            ================================================== -->
 
                             <td>
 
@@ -283,7 +340,70 @@ include "../../includes/navbar.php";
                             </td>
 
 
-                            <!-- AKSI -->
+                            <!-- =================================================
+                                 AKUN
+                            ================================================== -->
+
+                            <td>
+
+
+                                <?php if (!empty($row["username_user"])): ?>
+
+
+                                    <!-- AKUN SUDAH ADA -->
+
+                                    <div>
+
+                                        <span class="badge bg-success">
+
+                                            <i class="bi bi-person-check me-1"></i>
+
+                                            <?= htmlspecialchars(
+                                                $row["username_user"]
+                                            ); ?>
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <small class="text-muted">
+
+                                        Level:
+                                        <?= htmlspecialchars(
+                                            $row["level_user"]
+                                        ); ?>
+
+                                    </small>
+
+
+                                <?php else: ?>
+
+
+                                    <!-- AKUN BELUM ADA -->
+
+                                    <a
+                                        href="buat_akun.php?id=<?= urlencode($row["id_pegawai"]); ?>"
+                                        class="btn btn-sm btn-outline-success"
+                                        title="Buat Akun"
+                                    >
+
+                                        <i class="bi bi-person-plus me-1"></i>
+
+                                        Buat Akun
+
+                                    </a>
+
+
+                                <?php endif; ?>
+
+
+                            </td>
+
+
+                            <!-- =================================================
+                                 AKSI
+                            ================================================== -->
 
                             <td>
 
@@ -334,7 +454,7 @@ include "../../includes/navbar.php";
                     <tr>
 
                         <td
-                            colspan="5"
+                            colspan="6"
                             class="text-center text-muted py-5"
                         >
 
