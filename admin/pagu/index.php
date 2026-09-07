@@ -16,7 +16,7 @@ if (!isset($_SESSION["id_user"])) {
 
 
 // =====================================================
-// CEK LEVEL
+// CEK LEVEL ADMIN
 // =====================================================
 
 if (
@@ -38,22 +38,17 @@ require_once "../../config/database.php";
 
 
 // =====================================================
-// DATA PEGAWAI
+// DATA PAGU
 // =====================================================
 
 $query = mysqli_query(
     $conn,
     "SELECT
-        p.id_pegawai,
-        p.nama_pegawai,
-        p.nip_pegawai,
-        p.no_telp,
-        u.username_user,
-        u.level_user
-     FROM tbl_pegawai p
-     LEFT JOIN tbl_user u
-        ON p.id_pegawai = u.id_pegawai
-     ORDER BY p.nama_pegawai ASC"
+        id_pagu,
+        nama_pagu,
+        anggaran_pagu
+     FROM tbl_pagu
+     ORDER BY nama_pagu ASC"
 );
 
 
@@ -61,7 +56,7 @@ $query = mysqli_query(
 // JUDUL
 // =====================================================
 
-$title = "Data Pegawai";
+$title = "Pagu Anggaran";
 
 
 // =====================================================
@@ -89,11 +84,11 @@ include "../../includes/navbar.php";
         <div>
 
             <h2 class="page-title mb-1">
-                Data Pegawai
+                Pagu Anggaran
             </h2>
 
             <p class="text-muted mb-0">
-                Kelola data pegawai PUSKIN.
+                Kelola data pagu dan anggaran PUSKIN.
             </p>
 
         </div>
@@ -106,7 +101,7 @@ include "../../includes/navbar.php";
 
             <i class="bi bi-plus-lg me-2"></i>
 
-            Tambah Pegawai
+            Tambah Pagu
 
         </a>
 
@@ -120,15 +115,13 @@ include "../../includes/navbar.php";
     <?php if (isset($_GET["status"])): ?>
 
 
-        <!-- TAMBAH PEGAWAI -->
-
         <?php if ($_GET["status"] === "tambah"): ?>
 
             <div class="alert alert-success alert-dismissible fade show">
 
                 <i class="bi bi-check-circle me-2"></i>
 
-                Data pegawai berhasil ditambahkan.
+                Data pagu berhasil ditambahkan.
 
                 <button
                     type="button"
@@ -138,8 +131,6 @@ include "../../includes/navbar.php";
 
             </div>
 
-
-        <!-- EDIT PEGAWAI -->
 
         <?php elseif ($_GET["status"] === "edit"): ?>
 
@@ -147,7 +138,7 @@ include "../../includes/navbar.php";
 
                 <i class="bi bi-check-circle me-2"></i>
 
-                Data pegawai berhasil diperbarui.
+                Data pagu berhasil diperbarui.
 
                 <button
                     type="button"
@@ -157,8 +148,6 @@ include "../../includes/navbar.php";
 
             </div>
 
-
-        <!-- HAPUS PEGAWAI -->
 
         <?php elseif ($_GET["status"] === "hapus"): ?>
 
@@ -166,41 +155,7 @@ include "../../includes/navbar.php";
 
                 <i class="bi bi-check-circle me-2"></i>
 
-                Data pegawai berhasil dihapus.
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert"
-                ></button>
-
-            </div>
-
-            <?php elseif ($_GET["status"] === "reset"): ?>
-
-                <div class="alert alert-success alert-dismissible fade show">
-
-                    <i class="bi bi-check-circle me-2"></i>
-
-                    Password pegawai berhasil direset menjadi NIP.
-
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="alert"
-                    ></button>
-
-                </div>
-
-        <!-- AKUN BERHASIL DIBUAT -->
-
-        <?php elseif ($_GET["status"] === "akun"): ?>
-
-            <div class="alert alert-success alert-dismissible fade show">
-
-                <i class="bi bi-person-check me-2"></i>
-
-                Akun pegawai berhasil dibuat.
+                Data pagu berhasil dihapus.
 
                 <button
                     type="button"
@@ -229,11 +184,11 @@ include "../../includes/navbar.php";
         <div class="mb-4">
 
             <h5 class="mb-1">
-                Daftar Pegawai
+                Daftar Pagu Anggaran
             </h5>
 
             <small class="text-muted">
-                Data seluruh pegawai yang terdaftar.
+                Data pagu anggaran yang tersedia.
             </small>
 
         </div>
@@ -257,19 +212,11 @@ include "../../includes/navbar.php";
                         </th>
 
                         <th>
-                            Nama Pegawai
+                            Nama Pagu
                         </th>
 
                         <th>
-                            NIP
-                        </th>
-
-                        <th>
-                            No. Telepon
-                        </th>
-
-                        <th width="18%">
-                            Akun
+                            Anggaran
                         </th>
 
                         <th width="15%">
@@ -301,9 +248,7 @@ include "../../includes/navbar.php";
                         <tr>
 
 
-                            <!-- =================================================
-                                 NO
-                            ================================================== -->
+                            <!-- NO -->
 
                             <td>
 
@@ -312,16 +257,14 @@ include "../../includes/navbar.php";
                             </td>
 
 
-                            <!-- =================================================
-                                 NAMA
-                            ================================================== -->
+                            <!-- NAMA PAGU -->
 
                             <td>
 
                                 <strong>
 
                                     <?= htmlspecialchars(
-                                        $row["nama_pegawai"]
+                                        $row["nama_pagu"]
                                     ); ?>
 
                                 </strong>
@@ -329,96 +272,26 @@ include "../../includes/navbar.php";
                             </td>
 
 
-                            <!-- =================================================
-                                 NIP
-                            ================================================== -->
+                            <!-- ANGGARAN -->
 
                             <td>
 
-                                <?= htmlspecialchars(
-                                    $row["nip_pegawai"] ?? "-"
-                                ); ?>
+                                <strong>
+
+                                    Rp
+                                    <?= number_format(
+                                        $row["anggaran_pagu"],
+                                        0,
+                                        ",",
+                                        "."
+                                    ); ?>
+
+                                </strong>
 
                             </td>
 
 
-                            <!-- =================================================
-                                 TELEPON
-                            ================================================== -->
-
-                            <td>
-
-                                <?= htmlspecialchars(
-                                    $row["no_telp"] ?? "-"
-                                ); ?>
-
-                            </td>
-
-
-                            <!-- =================================================
-                                 AKUN
-                            ================================================== -->
-
-                            <td>
-
-
-                                <?php if (!empty($row["username_user"])): ?>
-
-
-                                    <!-- AKUN SUDAH ADA -->
-
-                                    <div>
-
-                                        <span class="badge bg-success">
-
-                                            <i class="bi bi-person-check me-1"></i>
-
-                                            <?= htmlspecialchars(
-                                                $row["username_user"]
-                                            ); ?>
-
-                                        </span>
-
-                                    </div>
-
-
-                                    <small class="text-muted">
-
-                                        Level:
-                                        <?= htmlspecialchars(
-                                            $row["level_user"]
-                                        ); ?>
-
-                                    </small>
-
-
-                                <?php else: ?>
-
-
-                                    <!-- AKUN BELUM ADA -->
-
-                                    <a
-                                        href="buat_akun.php?id=<?= urlencode($row["id_pegawai"]); ?>"
-                                        class="btn btn-sm btn-outline-success"
-                                        title="Buat Akun"
-                                    >
-
-                                        <i class="bi bi-person-plus me-1"></i>
-
-                                        Buat Akun
-
-                                    </a>
-
-
-                                <?php endif; ?>
-
-
-                            </td>
-
-
-                            <!-- =================================================
-                                 AKSI
-                            ================================================== -->
+                            <!-- AKSI -->
 
                             <td>
 
@@ -428,7 +301,7 @@ include "../../includes/navbar.php";
                                     <!-- EDIT -->
 
                                     <a
-                                        href="edit.php?id=<?= urlencode($row["id_pegawai"]); ?>"
+                                        href="edit.php?id=<?= urlencode($row["id_pagu"]); ?>"
                                         class="btn btn-sm btn-outline-primary"
                                         title="Edit"
                                     >
@@ -437,29 +310,14 @@ include "../../includes/navbar.php";
 
                                     </a>
 
-                                    <!-- RESET PASSWORD -->
-
-                                    <?php if (!empty($row["username_user"])): ?>
-
-                                        <a
-                                            href="reset_password.php?id=<?= urlencode($row["id_pegawai"]); ?>"
-                                            class="btn btn-sm btn-outline-warning"
-                                            title="Reset Password"
-                                        >
-
-                                            <i class="bi bi-key"></i>
-
-                                        </a>
-
-                                    <?php endif; ?>
 
                                     <!-- HAPUS -->
 
                                     <a
-                                        href="hapus.php?id=<?= urlencode($row["id_pegawai"]); ?>"
+                                        href="hapus.php?id=<?= urlencode($row["id_pagu"]); ?>"
                                         class="btn btn-sm btn-outline-danger"
                                         title="Hapus"
-                                        onclick="return confirm('Yakin ingin menghapus pegawai ini?');"
+                                        onclick="return confirm('Yakin ingin menghapus pagu ini?');"
                                     >
 
                                         <i class="bi bi-trash"></i>
@@ -484,18 +342,18 @@ include "../../includes/navbar.php";
                     <tr>
 
                         <td
-                            colspan="6"
+                            colspan="4"
                             class="text-center text-muted py-5"
                         >
 
                             <i
-                                class="bi bi-people"
+                                class="bi bi-wallet2"
                                 style="font-size: 40px;"
                             ></i>
 
                             <div class="mt-2">
 
-                                Belum ada data pegawai.
+                                Belum ada data pagu anggaran.
 
                             </div>
 
