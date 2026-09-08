@@ -14,7 +14,10 @@ body {
     min-height: 100vh;
 }
 
-/* SIDEBAR */
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
 
 .sidebar {
     position: fixed;
@@ -27,12 +30,15 @@ body {
     z-index: 1000;
 }
 
+
+/* BRAND */
+
 .sidebar-brand {
     height: 80px;
     display: flex;
     align-items: center;
     padding: 15px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .brand-icon {
@@ -57,11 +63,37 @@ body {
     color: #cbd7e6;
 }
 
-/* MENU */
+
+/* =====================================================
+   MENU
+===================================================== */
 
 .sidebar-menu {
     padding: 20px 15px;
+
+    /* Supaya menu bisa discroll jika terlalu panjang */
+    height: calc(100vh - 80px);
+    overflow-y: auto;
 }
+
+
+/* Scrollbar Sidebar */
+
+.sidebar-menu::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar-menu::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+}
+
+
+/* Judul Menu */
 
 .menu-title {
     font-size: 11px;
@@ -69,6 +101,9 @@ body {
     font-weight: bold;
     margin: 10px 10px;
 }
+
+
+/* Menu Item */
 
 .menu-item {
     display: flex;
@@ -82,10 +117,16 @@ body {
     transition: 0.2s;
 }
 
+
+/* Hover */
+
 .menu-item:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     color: white;
 }
+
+
+/* Menu Aktif */
 
 .menu-item.active {
     background: white;
@@ -93,17 +134,41 @@ body {
     font-weight: bold;
 }
 
+
+/* Icon */
+
 .menu-item i {
     font-size: 18px;
     width: 22px;
 }
 
-.menu-item.logout {
-    margin-top: 20px;
-    color: #ffcccc;
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+.logout-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 20px 10px 10px;
 }
 
-/* NAVBAR */
+.menu-item.logout {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #ffcccc !important;
+    background: rgba(220, 53, 69, 0.08);
+}
+
+.menu-item.logout:hover {
+    background: rgba(220, 53, 69, 0.25);
+    color: white !important;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
 
 .navbar {
     height: 70px;
@@ -121,7 +186,10 @@ body {
     justify-content: center;
 }
 
-/* CONTENT */
+
+/* =====================================================
+   CONTENT
+===================================================== */
 
 .main-content {
     margin-left: 250px;
@@ -133,12 +201,17 @@ body {
     color: #173b67;
 }
 
+
+/* =====================================================
+   STAT CARD
+===================================================== */
+
 .stat-card {
     background: white;
     border-radius: 12px;
     padding: 22px;
     border: none;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .stat-icon {
@@ -157,15 +230,23 @@ body {
     margin-top: 8px;
 }
 
+
+/* =====================================================
+   CONTENT CARD
+===================================================== */
+
 .content-card {
     background: white;
     border-radius: 12px;
     padding: 25px;
     border: none;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* MOBILE */
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media (max-width: 991px) {
 
